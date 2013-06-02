@@ -37,7 +37,7 @@ location = urllib2.quote (location)
 
 url = "http://api.openweathermap.org/data/2.5/forecast/daily?q="+location+"&mode=json&units=metric&cnt="+str(days)
 
-print url
+#print url
 
 response = requests.get (url)
 
