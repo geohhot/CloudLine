@@ -42,7 +42,11 @@ url = "http://api.openweathermap.org/data/2.5/forecast/daily?q="+location+"&mode
 response = requests.get (url)
 
 if response.status_code == 200:
-	weather = response.json()
+	try:
+		weather = response.json()
+	except ValueError:
+		print "Can't get JSON from server. Sorry."
+		sys.exit (1)
 	code = weather['cod']
 	if code == "404":
 		print "Sorry, location not found."
@@ -58,11 +62,11 @@ if response.status_code == 200:
 			pressure = day['pressure']
 			humidity = day['humidity']
 			print date
-			print ("--%s (%s)") % (main, description)
-			print ("--Temperature")
-			print ("----min: %s") % (temp_min)
-			print ("----max: %s") % (temp_max)
-			print ("--Pressure: %s") % (pressure)
-			print ("--Humidity: %s") % (humidity)
+			print ("  %s (%s)") % (main, description)
+			print ("  Temperature")
+			print ("    min: %s") % (temp_min)
+			print ("    max: %s") % (temp_max)
+			print ("  Pressure: %s") % (pressure)
+			print ("  Humidity: %s") % (humidity)
 else:
 	print "Err. Can't load resource. :("
